@@ -1,15 +1,12 @@
 "use client";
 import Link from "next/link";
+import { useParams, useSearchParams } from "next/navigation";
 
-export default function NewsArticle({
-  params,
-  searchParams,
-}: {
-  params: { articleId: string };
-  searchParams: { lang?: "en" | "es" | "fr" };
-}) {
-  const { articleId } = params;
-  const { lang = "en" } = searchParams;
+export default function NewsArticle() {
+  const params = useParams();
+  const SearchParams = useSearchParams();
+  const articleId = params.articleId;
+  const lang = SearchParams.get("lang") || "en";
   return (
     <div>
       <h1>News Article {articleId}</h1>
