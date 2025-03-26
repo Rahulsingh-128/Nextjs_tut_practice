@@ -1,13 +1,24 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
-export default function ProductReview({
+function getRandomInt(count: number) {
+  return Math.floor(Math.random() * count);
+}
+
+export default async function ProductReview({
   params,
 }: {
   params: { productId: string; reviewId: string };
 }) {
-  const { productId, reviewId } = params;
+  const random = getRandomInt(2);
+  if (random === 1) {
+    throw new Error("Error loading generated");
+  }
+
+  const awaitParams = await params;
+  const { productId, reviewId } = awaitParams;
   if (parseInt(productId) > 1000) {
-    notFound();
+    //notFound();
+    redirect("/products");
   }
   return (
     <h2>
